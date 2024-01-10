@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1em;
+      }
+      li {
+      }
+      code {
+        background-color: seashell;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Simulazione di Esame 02</h1>
+<h2>Descrizione del Problema</h2>
+<p>Vogliamo implementare il gioco di John Conway
+<a href="https://it.wikipedia.org/wiki/Gioco_della_vita">"Game of Life"</a>. Il gioco è una
+semplice simulazione di un mondo in cui ci sono delle cellule che possono essere
+vive o morte. Il mondo è una griglia di celle bidimensionale. Ad ogni passo del
+gioco, ogni cella può cambiare stato in base allo stato delle sue vicine. Le
+regole sono le seguenti:</p>
+<ul>
+<li>una cella morta con esattamente 3 vicine vive diventa viva</li>
+<li>una cella viva con 2 o 3 vicine vive rimane viva</li>
+<li>in tutti gli altri casi la cella muore</li>
+</ul>
+<p>Il gioco si svolge in un mondo rappresentato da una matrice di celle. Ogni cella
+può essere viva o morta, quindi possiamo rappresentare il mondo con una matrice
+di interi in cui <code>1</code> rappresenta la cella viva o <code>0</code> quella morta. Il gioco si
+svolge un passo alla volta. Ad ogni passo dobbiamo calcolare il mondo
+successivo. Il mondo successivo è calcolato applicando le regole del gioco a
+ogni cella del mondo corrente. Il gioco si ferma quando il mondo non cambia più,
+anche se in questo esame ci limitiamo a farlo girare per un numero finito di
+passi.</p>
+<p>Vari esempi di passi del gioco si trovano alla pagina di
+<a href="https://it.wikipedia.org/wiki/Gioco_della_vita">Wikipedia</a>.</p>
+<p>Come parte dell'esame, che è anche utile per visualizzare i dati, dobbiamo
+implementare due funzioni che caricano e salvano il mondo di gioco su file di
+testo. Il formato del file di testo è il seguente: ogni riga rappresenta una
+riga della matrice e contiene una serie di caratteri <code>0</code> e <code>1</code> separati da uno
+spazio. Il carattere <code>0</code> rappresenta una cella morta, il carattere <code>1</code>
+rappresenta una cella viva. Per esempio, la riga <code>0 1 0 1 1</code> rappresenta una
+riga di 5 celle in cui la prima, la terza e la quarta sono morte e la seconda e
+la quinta sono vive. La prima riga del file di testo contiene il numero di righe
+e colonne della matrice. Per esempio, la riga <code>3 5</code> indica che la matrice ha 3
+righe e 5 colonne. Il file di testo può contenere righe vuote e righe che
+contengono solo spazi. Queste righe vanno ignorate.</p>
+<p>Il problema va risolto implementando una serie di funzioni che operano su una
+struttura dati che rappresenta il mondo di gioco. La struttura dati deve essere
+implementata come una matrice dinamica.</p>
+<p>Suggerimenti: per implementare il gioco potrebbe essere utili le seguenti
+funzioni, che non sono richieste nell'esame:</p>
+<ul>
+<li><code>int get(GameWorld&amp; gw, int i, int j)</code>: ritorna il valore della cella in
+  posizione <code>i</code>, <code>j</code> come <code>cells[i * columns + j]</code>; se la posizione è fuori
+  dalla matrice, ritorna <code>0</code></li>
+<li><code>void set(GameWorld&amp; gw, int i, int j, int value)</code>: imposta il valore della
+  cella in posizione <code>i</code>, <code>j</code> a <code>value</code></li>
+<li><code>int count(GameWorld&amp; gw, int i, int j)</code>: ritorna il numero di celle vive
+  vicine alla cella in posizione <code>i</code>, <code>j</code></li>
+<li>variazioni di queste funzioni servono per prendere in considerazione le celle
+  sui bordi opposti come vicini</li>
+<li><code>GameWorld copy(const GameWorld&amp; gw)</code>: copia il mondo di gioco</li>
+</ul>
+<h2>Funzioni e Punteggio</h2>
+<ul>
+<li><code>GameWorld init(int n, int m, bool* cells)</code>: 2 punti<ul>
+<li>crea un mondo di gioco di <code>n</code> righe e <code>m</code> colonne con i valori dati</li>
+<li>i valori in <code>cells</code> vanno copiati nella struttura dati</li>
+<li>se <code>cells</code> è <code>nullptr</code>, tutte le celle sono morte</li>
+</ul>
+</li>
+<li><code>void drop(GameWorld&amp; gw)</code>: 1 punti<ul>
+<li>dealloca la matrice</li>
+</ul>
+</li>
+<li><code>int step_std(GameWorld&amp; gw)</code>: 15 punti<ul>
+<li>implementa un singolo passo del gioco</li>
+<li>per le celle sui bordi, i vicini mancanti si considerano celle morte</li>
+<li>nel forlo, serve una copia dei dati del mondo corrente</li>
+<li>ritorna il numero di celle vive nel mondo successivo</li>
+</ul>
+</li>
+<li><code>int step_mod(GameWorld&amp; gw)</code>: 5 punti<ul>
+<li>implementa un singolo passo del gioco, come variante di <code>step_std</code></li>
+<li>per le celle sui bordi, i vicini mancanti sono le celle sul lato opposto</li>
+<li>per esempio, per le celle sul lato sinistro, i vicini mancanti sono le celle
+sul lato destro</li>
+<li>ritorna il numero di celle vive nel mondo successivo</li>
+</ul>
+</li>
+<li><code>int load(GameWorld&amp; gw, const char* filename)</code>: 5 punti<ul>
+<li>carica il mondo di gioco dal file di testo</li>
+<li>ritorna il numero di celle vive</li>
+</ul>
+</li>
+<li><code>int save(const GameWorld&amp; gw, const char* filename)</code>: 5 punti<ul>
+<li>salva i records sul file di testo</li>
+<li>ritorna il numero di celle vive</li>
+</ul>
+</li>
+</ul>
+<h2>Regole e Test</h2>
+<p>Il programma deve essere scritto nel file <code>simesame02.cpp</code>. Potete madoficare il
+<code>main()</code> di quel file e usarlo come volete per testare le funzioni che
+implementate. Il programma compila e viene lanciato con il comando:</p>
+<div class="codehilite"><pre><span></span><code>g++<span class="w"> </span>simesame02.cpp<span class="w"> </span>-o<span class="w"> </span>simesame02<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./simesame02
+</code></pre></div>
+
+<p>Il programma viene testato automaticamente con il comando:</p>
+<div class="codehilite"><pre><span></span><code>g++<span class="w"> </span>simtest02.cpp<span class="w"> </span>-o<span class="w"> </span>simtest02<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./simtest02
+</code></pre></div>
+
+<p>Il programma di test collauda le funzioni che avete implementato e assegna un
+voto a seconda di quanti test passano. Il voto è la somma dei punteggi elencati
+sopra e dipende solo dalla correttza con cui si passano i test. Si può
+consegnare solo se il tester ritorna almeno 18. Il voto massimo è 33 che
+corrisponde a 30 e lode.</p>
+<p>Il test deve compilare e deve completare la sua esecuzione. In ogni altra
+evenienza il voto è 0.</p>
+  </body>
+</html>

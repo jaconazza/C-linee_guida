@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1em;
+      }
+      li {
+      }
+      code {
+        background-color: seashell;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Simulazione di Esame 03</h1>
+<h2>Descrizione del Problema</h2>
+<p>Vogliamo implementare un programma che gestisce un insieme di record. Ogni
+record è composto da un nome e da un voto. Il numero dei record è definito in
+partenza e non può essere modificato. Il programma deve permettere di cancellare
+un record esistente, di modificare il voto di un record esistente, di caricare i
+records da un file di testo e di salvare i records su un file di testo.</p>
+<p>La cancellazione viene fatta modificando un record esistente e assegnando al
+nome la stringa vuota e come voto il valore <code>-2</code>. Si può poi aggiungere un nuovo
+record solo se ne esiste uno vuoto in cui inserirlo. Nella cancellazione non si
+devono spostare i record rimanenti.</p>
+<p>Il nome di un record è una stringa di lunghezza non fissa rappresentata da un
+puntatore a carattere. Il voto è un valore intero che va da 0 a 31, dove 31 sta
+per "trenta e lode".</p>
+<p>Il formato dei files di testo è il seguente: ogni riga contiene un record e
+consiste di due parti separate da uno spazio. La prima parte è il nome del
+record, la seconda parte è il valore intero scritto come stringa, per esempio
+<code>Pippo 5</code> contiene il record con nome <code>Pippo</code> e voto <code>5</code>. Nel load si può
+assumere che il nome non sia più lungo di 256 caratteri e che il nome di un
+record cancellato sia indicato con "CANCELLATO". La prima riga del file contiene
+il numero di records contenuti nel file.</p>
+<p>La funziona di ricerca deve restituire il valore del record con nome dato o <code>-1</code>
+se il record non esiste.</p>
+<p>Il problema va risolto implementando una serie di funzioni che operano su una
+struttura dati che rappresenta l'insieme dei records. La struttura dati deve
+essere implementata come un array che alloca memoria sullo heap, ma che ha
+dimensione fissa.</p>
+<h2>Funzioni e Punteggio</h2>
+<ul>
+<li><code>RecordSet init()</code>: 2 punti<ul>
+<li>crea un array vuoto di records</li>
+</ul>
+</li>
+<li><code>void drop(RecordSet&amp; rs)</code>: 1 punti<ul>
+<li>dealloca l'array di records</li>
+</ul>
+</li>
+<li><code>int insert(RecordSet&amp; rs, const char* name, int grade)</code>: 5 punti<ul>
+<li>inserisce un nuovo record in una cella vuota dell'array solo se una cella
+vuota esiste</li>
+<li>ritorna la posizione del record inserito o <code>-1</code> se il record esiste già</li>
+</ul>
+</li>
+<li><code>int search(const RecordSet&amp; rs, const char* name)</code>: 5 punti<ul>
+<li>restituisce l'indice del record con nome dato o <code>-1</code> se il record non esiste</li>
+</ul>
+</li>
+<li><code>int update(RecordSet&amp; rs, const char* name, int grade)</code>: 5 punti<ul>
+<li>modifica il valore del record con nome dato</li>
+<li>ritora la posizione del record cambiato o <code>-1</code> se il record non esiste</li>
+</ul>
+</li>
+<li><code>int remove(RecordSet&amp; rs, const char* name)</code>: 5 punti<ul>
+<li>rimuove il record con nome dato</li>
+<li>ritora la posizione del record eliminato o <code>-1</code> se il record non esiste</li>
+</ul>
+</li>
+<li><code>RecordSet load(const char* filename)</code>: 5 punti<ul>
+<li>carica i records dal file di testo, incluso i record cancellati</li>
+<li>ritorna l'array di records caricati o l'array vuoto in caso di errore</li>
+</ul>
+</li>
+<li><code>int save(const RecordSet&amp; rs, const char* filename)</code>: 5 punti<ul>
+<li>salva i records sul file di testo, incluso i record cancellati</li>
+<li>ritorna <code>-1</code> in caso di errore</li>
+</ul>
+</li>
+</ul>
+<h2>Regole e Test</h2>
+<p>Il programma deve essere scritto nel file <code>simesame03.cpp</code>. Potete madoficare il
+<code>main()</code> di quel file e usarlo come volete per testare le funzioni che
+implementate. Il programma compila e viene lanciato con il comando:</p>
+<div class="codehilite"><pre><span></span><code>g++<span class="w"> </span>simesame03.cpp<span class="w"> </span>-o<span class="w"> </span>simesame03<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./simesame03
+</code></pre></div>
+
+<p>Il programma viene testato automaticamente con il comando:</p>
+<div class="codehilite"><pre><span></span><code>g++<span class="w"> </span>simtest03.cpp<span class="w"> </span>-o<span class="w"> </span>simtest03<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./simtest03
+</code></pre></div>
+
+<p>Il programma di test collauda le funzioni che avete implementato e assegna un
+voto a seconda di quanti test passano. Il voto è la somma dei punteggi elencati
+sopra e dipende solo dalla correttza con cui si passano i test. Si può
+consegnare solo se il tester ritorna almeno 18. Il voto massimo è 33 che
+corrisponde a 30 e lode.</p>
+<p>Il test deve compilare e deve completare la sua esecuzione. In ogni altra
+evenienza il voto è 0.</p>
+  </body>
+</html>

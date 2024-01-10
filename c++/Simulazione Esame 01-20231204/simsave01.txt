@@ -1,0 +1,3 @@
+2
+Pippo 10
+Pluto 20
